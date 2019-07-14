@@ -8,12 +8,15 @@ const { MongoManager } = require('./src/mongo');
 const api = require('./src/routes/api');
 const app = express();
 const mongoManager = new MongoManager(config);
+const passport = require('passport');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 mongoManager.connect();
+
+app.use(passport.initialize());
 
 app.use('/api', api);
 

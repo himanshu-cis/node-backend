@@ -8,6 +8,7 @@ class MongoManager {
     return this._config.MONGODB_URI;
   }
   connect() {
+    mongoose.set('useCreateIndex', true);
     return mongoose.connect(this.getMongoUrl(), { useNewUrlParser: true });
   }
 }

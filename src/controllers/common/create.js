@@ -1,13 +1,12 @@
-const { NotAcceptable } = require('rest-api-errors');
 const { sendCreated, sendNotFound } = require('../../middleware/requests-helpers');
 
 const create = (models) => async (req, res, next) => {
   const { params: { collection } } = req;
   if (typeof models[collection] === 'function') {
     try {
-      const product = new models[collection](req.body);
-      await product.save();
-      return sendCreated(res, { product });
+      const data = new models[collection](req.body);
+      await data.save();
+      return sendCreated(res, { data });
     } catch (error) {
       next(error);
     }
