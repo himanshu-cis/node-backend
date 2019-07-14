@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-const { isEmail } = require('validator');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
@@ -52,7 +51,7 @@ const schema = new Schema({
     },
     createdAt: {
         type: Date,
-        required: [true],
+        // required: [true],
     },
     createdBy: {
         type: ObjectId,
@@ -61,14 +60,10 @@ const schema = new Schema({
 
 /* virtual keys */
 schema.virtual('fullName').get(() => {
+    console.log('------------', parameters);
     return this.firstName + ' ' + this.lastName
 })
 
-/* user schema methods */
-schema.methods.comparePassword = async (password) => {
-    const match = await bcrypt.compare(password, this.password);
-    return (match) ? true : false;
-}
 
 /* hash the password before save */
 schema.pre('save', function (next) {
@@ -88,6 +83,12 @@ schema.pre('save', function (next) {
         });
     });
 });
+
+/* user schema methods */
+schema.methods.comparePassword = async (password, hashPwsd) => {
+    const match = await bcrypt.compare(password, hashPwsd);
+    return (match) ? true : false;
+}
 
 const User = mongoose.model('User', schema);
 

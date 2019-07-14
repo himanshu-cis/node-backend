@@ -26,11 +26,11 @@ const errorHandler = (err, req, res, next) => {
 
   //logger.info('API error', { error: err });
   return res
-    .status(error.status || 500)
+    .status(err.status || 500)
     .json({
       success: false,
-      code: error.code || 500,
-      message: error.message || STATUS_CODES[error.status],
+      code: err.code || 500,
+      message: err.message || STATUS_CODES[error.status],
     });
 };
 
