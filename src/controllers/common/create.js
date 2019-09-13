@@ -6,7 +6,7 @@ const create = (models) => async (req, res, next) => {
     try {
       const data = new models[collection](req.body);
       await data.save();
-      return sendCreated(res, { data });
+      return sendCreated(res, data);
     } catch (error) {
       next(error);
     }

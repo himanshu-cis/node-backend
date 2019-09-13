@@ -6,7 +6,6 @@ const jwtOptions = {};
 
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = CONFIG.SECRET;
-console.log('CONFIG.SECRET: ', CONFIG.SECRET);
 
 const strategy = new JwtStrategy(jwtOptions, async function (jwt_payload, next) {
     let err, user;

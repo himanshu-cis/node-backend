@@ -4,11 +4,10 @@ const { login } = require('../controllers/users/login');
 
 const router = express();
 // register api points
-router.use('/common', require('./common'));
+router.use('/c', require('./common'));
 router.use('/login', login);
 
 // catch api all errors
 router.use(errorHandler);
-
 
 module.exports = router;

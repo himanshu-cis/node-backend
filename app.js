@@ -30,16 +30,16 @@ app.use('/', function (req, res, next) {
   })
 });
 
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  // console.log("-----1111--------------TCL: req.app.get('env')", req.app.get('env'))
+// // error handler
+// app.use(function (err, req, res, next) {
+//   // set locals, only providing error in development
+//   // console.log("-----1111--------------TCL: req.app.get('env')", req.app.get('env'))
 
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  ReE(res, err, 422)
-});
+//   // render the error page
+//   ReE(res, err, 422)
+// });
 
 module.exports = app;
