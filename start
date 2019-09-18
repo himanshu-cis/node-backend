@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Author : Zeeshan A
+# Script follows here:
+
+{ # try
+    echo "------Changing node enviroment!!"
+    nvm use 10
+    echo "----------------------------------done!!"
+} || { # catch
+    echo "ERROR: changing environment!!!"
+}
+{
+    echo "------Starting mongod service!!"
+    service mongod restart
+    echo "----------------------------------done!!"
+} || {
+    echo "ERROR: Starting mongo service!!!"
+}
+{
+    echo "------Starting server!!"
+    npm run dev
+    echo "----------------------------------done!!"
+} || {
+    echo "ERROR: Starting server!!!"
+}

@@ -7,6 +7,7 @@ const config = require('./config');
 const { MongoManager } = require('./src/mongo');
 const api = require('./src/routes/api');
 const app = express();
+const logger = require('morgan');
 const mongoManager = new MongoManager(config);
 const passport = require('passport');
 
@@ -17,9 +18,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 mongoManager.connect();
 
 app.use(passport.initialize());
+app.use(logger('dev'));
+
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*'); 
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization, Content-Type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
 
 app.use('/api', api);
-
 /* For non registered route */
 app.use('/', function (req, res, next) {
   res.statusCode = 200;
